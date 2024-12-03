@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Errors</title>
+</head>
+<body>
+    <h1>Validation Errors</h1>
+    <ul>
+        <th:block th:each="error : ${errors}">
+            <li th:text="${error.key} + ': ' + ${error.value}"></li>
+        </th:block>
+    </ul>
+</body>
+</html>

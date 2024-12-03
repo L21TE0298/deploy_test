@@ -1,0 +1,40 @@
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dpg-ct3k4l8gph6c73c04cdg-a.oregon-postgres.render.com/bdgs
+      - SPRING_DATASOURCE_USERNAME=bdgs_user
+      - SPRING_DATASOURCE_PASSWORD=LK0lcTxXIsvMoy1f7a27z7HbXNd7XJXh
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID=778908677587-6b5ndnp4u67on49flep1pbjqdpe1h02l.apps.googleusercontent.com
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET=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
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENT_ID=Ov23liujl7b5cjh55SBf
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENT_SECRET=3cb9a842ef10b05670e4cea12c63dc0ca379a876
+      - SECURITY_JWT_SECRET_KEY=3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+      - SECURITY_JWT_EXPIRATION_TIME=3600000
+      - SPRING_JPA_HIBERNATE_NAMING_PHYSICAL_STRATEGY=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=bdgs
+      - POSTGRES_USER=bdgs_user
+      - POSTGRES_PASSWORD=LK0lcTxXIsvMoy1f7a27z7HbXNd7XJXh
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
