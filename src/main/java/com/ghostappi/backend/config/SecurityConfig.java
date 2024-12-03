@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/nutrients/**","/rewards/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:8080/doc/swagger-ui/index.html#/", true)
+                        .defaultSuccessUrl("https://deploy-test-1-wylo.onrender.com/doc/swagger.html", true)
                         .failureUrl("/login?error=true"))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
